@@ -11,25 +11,31 @@ using System.Windows.Forms;
 
 namespace Minesweeper_Project
 {
-    public partial class Form1 : Form
+    /// <summary>
+    /// Represents the form for the minesweeper game
+    /// </summary>
+    public partial class GameForm : Form
     {
-        public bool begin = false;
-        public bool flagged = false;
-        public bool firstpress = true;
-        public int flagNumber = 0;
-        public int flaggedMines = 0;
-        public int mines = 0;
-        public int difficulty = 0;
+        private bool firstpress = true;
+        private int flagNumber = 0;
+        private int flaggedMines = 0;
+        private int mines = 0;
+        private int difficulty = 0;
 
-        public Bitmap mineImage = new Bitmap("mine2.png");
-        public Bitmap flagImage = new Bitmap("flag.png");
-        List<Button> buttonList = new List<Button>();
-        List<Tile> gameBoard = new List<Tile>();
-        public Form1()
+        private Bitmap mineImage = new Bitmap("mine2.png"); //Specifies the image for the mines
+        private Bitmap flagImage = new Bitmap("flag.png"); //Specifies the image for the flags
+        private List<Button> buttonList = new List<Button>(); //Specifies the list for the buttons
+        private List<Tile> gameBoard = new List<Tile>(); //Specifies the list for the game board
+        /// <summary>
+        /// Initializes a new instance of the GameForm class
+        /// </summary>
+        public GameForm()
         {
             InitializeComponent();
         }
-
+        /// <summary>
+        /// Creates the game board
+        /// </summary>
         private void BuildGame()
         {
             int offsetX = 100;
@@ -59,7 +65,7 @@ namespace Minesweeper_Project
                     divisor = 9;
                     boardSize = 81;
                     offsetX = 80;
-                    
+
                     break;
 
                 case 4:
@@ -98,13 +104,13 @@ namespace Minesweeper_Project
 
                 if (mineCount < 25)
                 {
-                    gameBoard.Add(new Tile(tileX, tileY, number.ToString(), number, true, false));
+                    gameBoard.Add(new Tile(tileX, tileY, number.ToString(), true));
                     flagNumber++;
                     mines++;
                 }
                 else
                 {
-                    gameBoard.Add(new Tile(tileX, tileY, number.ToString(), number, false, false));
+                    gameBoard.Add(new Tile(tileX, tileY, number.ToString(), false));
                 }
 
                 offsetX += 50;
@@ -113,12 +119,16 @@ namespace Minesweeper_Project
                 tileX++;
             }
         }
-
+        /// <summary>
+        /// Event handler for the button click event
+        /// </summary>
+        /// <param name="sender">Specifies where the event was sent from</param>
+        /// <param name="event">Specifies the event</param>
         private void Click(object sender, MouseEventArgs @event)
         {
-            Button button = (sender as Button);
+            Button button = sender as Button;
             Tile tile = FindTile(button);
-            if(firstpress == true)
+            if (firstpress == true)
             {
                 tile.ismine = false;
                 RemoveMines(tile);
@@ -136,7 +146,7 @@ namespace Minesweeper_Project
                     button.BackColor = Color.Black;
                     flagNumber = flagNumber - 1;
                     flagnum.Text = flagNumber.ToString();
-                    if(tile.ismine == true)
+                    if (tile.ismine == true)
                     {
                         flaggedMines++;
                     }
@@ -152,19 +162,19 @@ namespace Minesweeper_Project
                     button.BackgroundImage = null;
                     button.BackColor = Color.White;
                     flagNumber = flagNumber + 1;
-                    if(tile.ismine == true)
+                    if (tile.ismine == true)
                     {
                         flaggedMines++;
                     }
                     flagnum.Text = flagNumber.ToString();
                 }
             }
-            
+
             if (@event.Button == MouseButtons.Left)
             {
                 if (button.BackgroundImage != flagImage && button.BackColor != Color.Black)
                 {
-                    if(flaggedMines == mines)
+                    if (flaggedMines == mines)
                     {
                         title.Text = "You Win";
                         EndGame();
@@ -193,41 +203,60 @@ namespace Minesweeper_Project
                 }
             }
         }
-        
 
+        /// <summary>
+        /// Loads the form
+        /// </summary>
+        /// <param name="sender">Specifies where the event was sent from</param>
+        /// <param name="e">Specifies the event</param>
         private void Form1_Load(object sender, EventArgs e)
         {
-           
+
         }
         #region Find Functions
+        /// <summary>
+        /// Iterates through the all tiles to find a tile from a given button
+        /// </summary>
+        /// <param name="b">Specifies the button to search with</param>
+        /// <returns>Returns the found tile</returns>
         private Tile FindTile(Button b)
         {
-            foreach(Tile a in gameBoard)
+            foreach (Tile a in gameBoard)
             {
-                if(b.Name == a.name)
-                {
-                    return a;
-                }
-            }
-            return null;  
-        }
-
-        private Button FindButton(Tile b)
-        {
-            foreach(Button a in buttonList)
-            {
-                if(b.name == a.Name)
+                if (b.Name == a.name)
                 {
                     return a;
                 }
             }
             return null;
         }
-        private Tile FindTileXY(int xnum, int ynum)
+        /// <summary>
+        /// Iterates through the all buttons to find a button from a given tile
+        /// </summary>
+        /// <param name="b">Specifies the tile to search with</param>
+        /// <returns>Returns the found button</returns>
+        private Button FindButton(Tile b)
+        {
+            foreach (Button a in buttonList)
+            {
+                if (b.name == a.Name)
+                {
+                    return a;
+                }
+            }
+            return null;
+        }
+        /// <summary>
+        /// Iterates through all tiles to find a tile from given coordinates
+        /// </summary>
+        /// <param name="xPosition">Specifies the X coordinate</param>
+        /// <param name="yPosition">Specifies the Y coordinate</param>
+        /// <returns>Returns the found tile</returns>
+        private Tile FindTileXY(int xPosition, int yPosition)
         {
             foreach (Tile a in gameBoard)
             {
-                if (xnum == a.xcoord && ynum == a.ycoord)
+                if (xPosition == a.xcoord && yPosition == a.ycoord)
                 {
                     return a;
                 }
@@ -235,15 +264,19 @@ namespace Minesweeper_Project
             return null;
         }
         #endregion
-
+        /// <summary>
+        /// Checks tiles adjacent to given tile for mines
+        /// </summary>
+        /// <param name="tile">Specifies the tile to check</param>
+        /// <returns>Returns an integer that specifies the number of adjacent mines</returns>
         private int MineCheck(Tile tile)
         {
             int mineCount = 0;
             int xCoord = tile.xcoord;
             int yCoord = tile.ycoord;
-            for(int x = -1; x < 2; x++)
+            for (int x = -1; x < 2; x++)
             {
-                for(int y = 1; y > -2; y--)
+                for (int y = 1; y > -2; y--)
                 {
                     if (FindTileXY(xCoord + x, yCoord + y) != null && FindTileXY(xCoord + x, yCoord + y).ismine == true)
                     {
@@ -253,7 +286,10 @@ namespace Minesweeper_Project
             }
             return mineCount;
         }
-
+        /// <summary>
+        /// Removes mines adjacent to a given tile
+        /// </summary>
+        /// <param name="tile">Specifies the tile</param>
         private void RemoveMines(Tile tile)
         {
             int xCoord = tile.xcoord;
@@ -270,7 +306,10 @@ namespace Minesweeper_Project
                 }
             }
         }
-
+        /// <summary>
+        /// Clears adjacent tiles to a given tile
+        /// </summary>
+        /// <param name="button">Specifies the button used to search for the tile to clear</param>
         private void TileClear(Button button)
         {
             Tile tile = FindTile(button);
@@ -280,7 +319,7 @@ namespace Minesweeper_Project
             {
                 for (int y = 1; y > -2; y--)
                 {
-                    if(FindTileXY(xCoord + x, yCoord + y) == null)
+                    if (FindTileXY(xCoord + x, yCoord + y) == null)
                     {
                         continue;
                     }
@@ -306,7 +345,9 @@ namespace Minesweeper_Project
                 }
             }
         }
-
+        /// <summary>
+        /// Ends the game
+        /// </summary>
         private void EndGame()
         {
             foreach (Button end in buttonList)
@@ -334,39 +375,56 @@ namespace Minesweeper_Project
                 }
             }
         }
+        /// <summary>
+        /// Event handler for the tile button click event
+        /// </summary>
+        /// <param name="sender">Specifies where the event was sent from</param>
+        /// <param name="e">Specifies the event</param>
         private void button1_Click(object sender, EventArgs e)
         {
-            Form1 NewForm = new Form1();
+            GameForm NewForm = new GameForm();
             NewForm.Show();
             Dispose(false);
         }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
         #region Difficulty Buttons
+        /// <summary>
+        /// Event handler for the difficulty 49 button
+        /// </summary>
+        /// <param name="sender">Specifies where the event was sent from</param>
+        /// <param name="e">Specifies the event</param>
         private void Difficulty49Button(object sender, EventArgs e)
         {
             difficulty = 1;
             BuildGame();
             difficultyp.Hide();
         }
-
+        /// <summary>
+        /// Event handler for the difficulty 64 button
+        /// </summary>
+        /// <param name="sender">Specifies where the event was sent from</param>
+        /// <param name="e">Specifies the event</param>
         private void Difficulty64Button(object sender, EventArgs e)
         {
             difficulty = 2;
             BuildGame();
             difficultyp.Hide();
         }
-
+        /// <summary>
+        /// Event handler for the difficulty 81 button
+        /// </summary>
+        /// <param name="sender">Specifies where the event was sent from</param>
+        /// <param name="e">Specifies the event</param>
         private void Difficulty81Button(object sender, EventArgs e)
         {
             difficulty = 3;
             BuildGame();
             difficultyp.Hide();
         }
-
+        /// <summary>
+        /// Event handler for the difficulty 100 button
+        /// </summary>
+        /// <param name="sender">Specifies where the event was sent from</param>
+        /// <param name="e">Specifies the event</param>
         private void Difficulty100Button(object sender, EventArgs e)
         {
             difficulty = 4;

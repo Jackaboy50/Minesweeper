@@ -48,3 +48,14 @@ E:\College work\Computer Science\Coding Projects\C#\Win Forms\Minesweeper Update
 E:\College work\Computer Science\Coding Projects\C#\Win Forms\Minesweeper Updated\Minesweeper Project\Minesweeper Project\obj\Debug\Minesweeper Project.csproj.CoreCompileInputs.cache
 E:\College work\Computer Science\Coding Projects\C#\Win Forms\Minesweeper Updated\Minesweeper Project\Minesweeper Project\obj\Debug\Minesweeper Project.exe
 E:\College work\Computer Science\Coding Projects\C#\Win Forms\Minesweeper Updated\Minesweeper Project\Minesweeper Project\obj\Debug\Minesweeper Project.pdb
+C:\Users\jackt\Source\Repos\Minesweeper\Minesweeper Project\Minesweeper Project\obj\Debug\Minesweeper Project.csproj.AssemblyReference.cache
+C:\Users\jackt\Source\Repos\Minesweeper\Minesweeper Project\Minesweeper Project\obj\Debug\Minesweeper Project.csproj.SuggestedBindingRedirects.cache
+C:\Users\jackt\Source\Repos\Minesweeper\Minesweeper Project\Minesweeper Project\obj\Debug\Minesweeper_Project.GameForm.resources
+C:\Users\jackt\Source\Repos\Minesweeper\Minesweeper Project\Minesweeper Project\obj\Debug\Minesweeper_Project.Properties.Resources.resources
+C:\Users\jackt\Source\Repos\Minesweeper\Minesweeper Project\Minesweeper Project\obj\Debug\Minesweeper Project.csproj.GenerateResource.cache
+C:\Users\jackt\Source\Repos\Minesweeper\Minesweeper Project\Minesweeper Project\obj\Debug\Minesweeper Project.csproj.CoreCompileInputs.cache
+C:\Users\jackt\Source\Repos\Minesweeper\Minesweeper Project\Minesweeper Project\obj\Debug\Minesweeper Project.exe
+C:\Users\jackt\Source\Repos\Minesweeper\Minesweeper Project\Minesweeper Project\obj\Debug\Minesweeper Project.pdb
+C:\Users\jackt\Source\Repos\Minesweeper\Minesweeper Project\Minesweeper Project\bin\Debug\Minesweeper Project.exe.config
+C:\Users\jackt\Source\Repos\Minesweeper\Minesweeper Project\Minesweeper Project\bin\Debug\Minesweeper Project.exe
+C:\Users\jackt\Source\Repos\Minesweeper\Minesweeper Project\Minesweeper Project\bin\Debug\Minesweeper Project.pdb
